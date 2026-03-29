@@ -1,0 +1,117 @@
+import type { Metadata, Viewport } from "next"
+import { ReactNode } from "react"
+import "./globals.css"
+
+export const metadata: Metadata = {
+  title: "Copa do Brasil - Camisa Oficial | Compre Agora",
+  description: "Camisa oficial da seleção brasileira para a Copa do Brasil. Qualidade premium, frete grátis e entrega em até 3 dias úteis com Flash Delivery.",
+  keywords: [
+    "camisa brasil",
+    "seleção brasileira",
+    "copa do brasil",
+    "camisa oficial",
+    "futebol",
+  ],
+  authors: [{ name: "Copa do Brasil Store" }],
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: process.env.NEXT_PUBLIC_APP_URL || "https://copa-brasil.com.br",
+    siteName: "Copa do Brasil - Camisa Oficial",
+    title: "Copa do Brasil - Camisa Oficial",
+    description: "Camisa oficial da seleção brasileira. Qualidade premium com frete grátis.",
+    images: [
+      {
+        url: "https://ibb.co/gFtcGtCv",
+        width: 1200,
+        height: 630,
+        alt: "Camisa Oficial Copa do Brasil",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Copa do Brasil - Camisa Oficial",
+    description: "Camisa oficial da seleção brasileira",
+    images: ["https://ibb.co/gFtcGtCv"],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  colorScheme: "dark",
+  themeColor: "#047857",
+}
+
+interface RootLayoutProps {
+  children: ReactNode
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
+  return (
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        {/* Preconnect para otimizar carregamento */}
+        <link rel="preconnect" href="https://ibb.co" />
+        <link rel="preconnect" href="https://cdn.pixabay.com" />
+        
+        {/* Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="bg-slate-900 text-white antialiased">
+        {/* Skip to main content */}
+        <a href="#main" className="sr-only focus:not-sr-only">
+          Pular para o conteúdo principal
+        </a>
+
+        <main id="main">{children}</main>
+
+        {/* Structured Data - JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: "Camisa Oficial Copa do Brasil",
+              description: "Camisa oficial da seleção brasileira para a Copa do Brasil",
+              image: "https://ibb.co/gFtcGtCv",
+              brand: {
+                "@type": "Brand",
+                name: "Copa do Brasil",
+              },
+              offers: {
+                "@type": "AggregateOffer",
+                priceCurrency: "BRL",
+                lowPrice: "74.99",
+                highPrice: "119.99",
+                offerCount: "2",
+              },
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.9",
+                reviewCount: "1250",
+              },
+            }),
+          }}
+        />
+      </body>
+    </html>
+  )
+}
